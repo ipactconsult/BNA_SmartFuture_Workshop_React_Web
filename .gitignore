@@ -1,13 +1,13 @@
 /BNA-Dashboard/admin/node_modules
 /BNA-Dashboard/backend/node_modules
 
-/react-workshop/node_modules
+/npx-workshop/react-workshop/node_modules
 /BNA-Dashboard/backend/.env
 
 /BNA-Dashboard/admin/package-lock.json
 /BNA-Dashboard/backend/package-lock.json
 
-/react-workshop/package-lock.json
+/npx-workshop/react-workshop/package-lock.json
 
 
 
