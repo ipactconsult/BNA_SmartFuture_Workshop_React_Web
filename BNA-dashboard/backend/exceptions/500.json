@@ -1,0 +1,13 @@
+{
+  "internal": {
+    "server": {
+      "error": "Internal Server Error"
+    }
+  },
+
+  "token": {
+    "missing": "Unauthorized - Token missing",
+    "invalid_user":"Unauthorized - Invalid user",
+    "invalid_token":"Unauthorized - Invalid token"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "register": {
+    "successful_operation": "User registered successfully"
+  },
+  "login": {
+    "successful_operation": "User logged successfully"
+  },
+  "forget-email": {
+    "successful_operation": "Email sended successfully"
+  },
+  "reset-password":{
+    "successful_operation" : "Verified Code"
+  }
+}

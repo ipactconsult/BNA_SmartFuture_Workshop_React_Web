@@ -1,0 +1,12 @@
+/*Background - Global View */
+body{
+    background-color: rgb(0, 0, 0);
+}
+
+/*Text Style - Color & Shadow */
+.mytext {
+    text-align: center;
+    color:#0DAD78;
+    text-shadow: 0 0 55px white;
+}
+

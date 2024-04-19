@@ -1,0 +1,298 @@
+body {
+  margin: 0;
+  background-color: #DFEADC;
+  display: block;
+
+}
+
+/* App.css */
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+}
+
+.sidebar {
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+}
+
+.navbar {
+  height: 50px;
+  background-color: transparent;
+  color: #000;
+  text-align: end;
+  position: absolute;
+  right: 0;
+}
+
+/*Footer*/
+.footer {
+  height: 20px;
+  background-color: transparent;
+  color: #000;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-width: 50%;
+  position: absolute;
+  bottom: -10px;
+}
+
+.content-auth {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: start;
+  text-align: start;
+  width: 95%;
+}
+
+
+.content {
+  display: block;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: -700px;
+  margin-left: 350px;
+}
+
+.footer {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  font-weight: bold;
+  align-items: center;
+  text-align: center;
+}
+
+.content-navbar {
+  display: flex;
+  padding: 20px;
+  justify-content: end;
+  align-items: end;
+  text-align: end;
+  position: relative;
+  right: 0;
+}
+
+/* Sidebar.css */
+.sidebar {
+  width: 250px;
+  min-height: 90vh;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+.sidebar li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar li:hover {
+  background-color: #555;
+  padding: 20px;
+}
+
+/* Login.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #009A78;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #828a82;
+}
+
+.logout {
+  width: 100%;
+}
+
+/* Style des cartes */
+.display_card {
+  display: flex;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  color: #fff;
+  background-color: #333;
+  width: 300px;
+}
+
+/* Style du titre de la carte */
+.card h2 {
+  margin-top: 0;
+}
+
+/* Style du contenu de la carte */
+.card p {
+  margin-bottom: 0;
+}
+
+/*Form Virement*/
+.form {
+  justify-content: start;
+  align-items: start;
+  text-align: start;
+}
+
+.form .input-value {
+  height: 30px;
+  width: 97%;
+}
+
+.form .textarea-value {
+  width: 99%;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+/* Style du tableau */
+.table-container {
+  width: 1100px;
+}
+.title_table {
+  text-align: justify;
+}
+.table {
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+/* Style des cellules du tableau */
+.table th,
+.table td {
+  padding: 18px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  min-width: 53%;
+}
+
+.table .colA {
+  display: flex;
+}
+
+/* Style des en-têtes de colonne */
+.table th {
+  background-color: #f2f2f2;
+  
+}
+
+.table .edit {
+  border-radius: 5px;
+  width: 35px ;
+  height: 30px;
+  background-color: goldenrod;
+  color : #000;
+  margin-left: 2px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+
+}
+
+
+
+.table .slash {
+  border-radius: 5px;
+  background-color: rgb(198, 14, 14);
+  color : #fff;
+  margin-left: 2px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 35px;
+  height : 30px;
+}
+
+.table .view {
+  border-radius: 5px;
+  background-color: rgb(50, 50, 225);
+  color : #fff;
+}
+
+
+/* Style des lignes impaires */
+.table tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Media query pour la mise en page responsive */
+@media screen and (max-width: 600px) {
+  .table {
+    overflow-x: auto;
+  }
+}
+
+/*size navbar content*/
+.circle {
+  font-size: 10px;
+  color: #009A78;
+}
+
+.text {
+  color: #009A78;
+}
+
+/*input style*/
+.text-input {
+  width: 500px;
+}

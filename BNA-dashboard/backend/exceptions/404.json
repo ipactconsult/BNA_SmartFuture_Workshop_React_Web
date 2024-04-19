@@ -1,0 +1,21 @@
+{
+    "invalid_credentials": {
+      "warning_operation": "Invalid credentials"
+    },
+    "user_notfound": {
+      "warning_operation": "User not found"
+    },
+    "not_authenticated": {
+      "warning_operation": "User Not authenticated"
+    },
+    "invalid_token": {
+      "warning_operation": "Invalid Token Value"
+    },
+    "invalid_user_token": {
+      "warning_operation": "Token does not match according this user"
+    },
+    "invalid_code": {
+      "warning_operation":"Invalid Code"
+    }
+  }
+  

@@ -1,0 +1,4 @@
+{
+    "error":"Error in DB connection:",
+    "success": "MongoDB Connection Succeeded."
+}
