@@ -1,3 +1,6 @@
 [submodule "react-workshop"]
 	path = react-workshop
 	url = https://github.com/ipactconsult/react-workshop.git
+[submodule "BNA_SmartFuture_Workshop_React_Native"]
+	path = BNA_SmartFuture_Workshop_React_Native
+	url = https://github.com/SafaTt/BNA_SmartFuture_Workshop_React_Native.git
