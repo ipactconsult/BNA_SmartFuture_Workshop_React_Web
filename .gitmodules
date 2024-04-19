@@ -1,0 +1,3 @@
+[submodule "react-workshop"]
+	path = react-workshop
+	url = https://github.com/ipactconsult/react-workshop.git
