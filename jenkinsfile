@@ -9,6 +9,22 @@ pipeline {
                 git branch: 'NADIA', url: 'https://github.com/ipactconsult/BNA_SmartFuture_Workshop_React_Web.git'
             }
         }
+          stage('Install dependencies - Node.js') {
+            steps {
+                dir('backend') {
+                    // Installation des dépendances pour le sous-projet Node.js
+                    sh 'npm install'
+                }
+            }
+        }
+         stage('Install dependencies - React') {
+            steps {
+                dir('admin') {
+                    // Installation des dépendances pour le projet React
+                    sh 'npm install'
+                }
+            }
+        }
 
  }
 
