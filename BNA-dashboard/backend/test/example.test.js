@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+import { expect } from 'chai';
 
 describe('Example Node.js Test', () => {
   it('should return true', () => {
