@@ -19,7 +19,7 @@ pipeline {
         }
          stage('Install dependencies - React') {
             steps {
-                dir('admin') {
+                dir('BNA-dashboard/admin') {
                     // Installation des dépendances pour le projet React
                     sh 'npm install'
                 }
