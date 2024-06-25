@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout Git repository') {
             steps {
                 echo 'Pulling'
-                git branch: 'NADIA', credentialsId: 'github-cri', url: 'https://github.com/ipactconsult/BNA_SmartFuture_Workshop_React_Web.git'
+                git branch: 'NADIA', credentialsId: 'github-cridentiel', url: 'https://github.com/ipactconsult/BNA_SmartFuture_Workshop_React_Web.git'
             }
         }
 
