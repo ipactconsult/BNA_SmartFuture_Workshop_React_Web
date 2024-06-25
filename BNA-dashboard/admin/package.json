@@ -19,7 +19,7 @@
     "react-dom": "18.2.0",
     "react-redux": "^9.1.1",
     "react-router-dom": "6.10.0",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.1",  
     "redux": "^5.0.1"
   },
   "devDependencies": {
@@ -42,15 +42,13 @@
       "not dead",
       "not op_mini all"
     ],
-    "scripts": {
-      "start": "react-scripts start",
-      "build": "react-scripts build",
-      "test": "react-scripts test --coverage --watchAll=false"
-    },
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "babel-jest": "^29.7.0"
   }
 }
