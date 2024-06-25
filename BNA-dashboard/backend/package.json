@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index",
-    "test": "mocha 'test/**/*.js' --recursive --reporter mocha-junit-reporter --reporter-options mochaFile=./test-results.xml"
+    "test": "mocha 'test/**/*.js' --recursive --reporter mocha-junit-reporter --reporter-options mochaFile=./test-results.xml",
+    "build": "echo 'No build step defined for backend'"
   },
   "keywords": [],
   "author": "",
