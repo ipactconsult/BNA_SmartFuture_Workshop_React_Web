@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    
+    
+ stages {
+        stage('Checkout Git repository') {
+            steps {
+                echo 'Pulling'
+                git branch: 'NADIA', credentialsId: 'github-cri', url: 'https://github.com/ipactconsult/BNA_SmartFuture_Workshop_React_Web.git'
+            }
+        }
+
+ }
+
+
+
+
+}
