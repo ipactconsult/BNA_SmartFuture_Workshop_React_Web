@@ -11,7 +11,7 @@ pipeline {
         }
           stage('Install dependencies - Node.js') {
             steps {
-                dir('backend') {
+                dir('BNA-dashboard/backend') {
                     // Installation des dépendances pour le sous-projet Node.js
                     sh 'npm install'
                 }
