@@ -64,46 +64,27 @@ pipeline {
             }
         }
         
-        stage('Build Docker Image') {
+        stage('Build and Push Docker Image - Backend') {
             steps {
-                script {
-                    def dockerImage = docker.build("aadmin", "-f BNA-dashboard/admin/Dockerfile .")
-                }
-            }
-        }
-
-        stage(' Push Docker Image to DockerHub') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerpwd')]) {
-                        sh '''
-                        docker login -u nadianb -p "$dockerpwd"
-                        docker tagaadmin:latest nadianb/aadmin:latest
-                        docker push nadianb/aadmin:latest
-                        '''
+                dir('BNA-dashboard/backend') {
+                    script {
+                        def dockerImage = docker.build("product_management", "-f Dockerfile .")
+                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
         }
-        
-        
-      stage('Build Docker Image') {
-            steps {
-                script {
-                    def dockerImage = docker.build("product_management", "-f BNA-dashboard/backend/Dockerfile .")
-                }
-            }
-        }
 
-        stage(' Push Docker Image to DockerHub') {
+        stage('Build and Push Docker Image - React') {
             steps {
-                script {
-                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerpwd')]) {
-                        sh '''
-                        docker login -u nadianb -p "$dockerpwd"
-                        docker tag product_management:latest nadianb/product_management:latest
-                        docker push nadianb/product_management:latest
-                        '''
+                dir('BNA-dashboard/admin') {
+                    script {
+                        def dockerImage = docker.build("aadmin", "-f Dockerfile .")
+                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
