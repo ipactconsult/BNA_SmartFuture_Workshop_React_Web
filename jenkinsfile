@@ -1,7 +1,7 @@
 pipeline {
     agent any
-     environment {
-      
+    
+    environment {
         DOCKERHUB_TOKEN = credentials('first-pipe')
     }
     
@@ -12,97 +12,79 @@ pipeline {
                 git branch: 'NADIA', url: 'https://github.com/ipactconsult/BNA_SmartFuture_Workshop_React_Web.git'
             }
         }
-        stage('Install dependencies - Node.js') {
+        
+        stage('Install dependencies - Backend') {
             steps {
                 dir('BNA-dashboard/backend') {
-                    // Installation des dépendances pour le sous-projet Node.js
                     sh 'npm install'
                 }
             }
         }
-        stage('Test - Node.js') {
+        
+        stage('Test - Backend') {
             steps {
                 dir('BNA-dashboard/backend') {
-                    // Exécution des tests unitaires pour le sous-projet Node.js
                     sh 'npm test'
                 }
             }
         }
-        stage('Build - Node.js') {
+        
+        stage('Build - Backend') {
             steps {
                 dir('BNA-dashboard/backend') {
-                    // Construire le backend Node.js
                     sh 'npm run build'
                 }
             }
         }
+        
         stage('Install dependencies - React') {
             steps {
                 dir('BNA-dashboard/admin') {
-                    // Installation des dépendances pour le projet React
                     sh 'npm install'
                 }
             }
         }
+        
         stage('Build - React') {
             steps {
                 dir('BNA-dashboard/admin') {
-                    // Construire le projet React
                     sh 'npm run build'
                 }
             }
         }
-          stage('SonarQube Analysis') {
-            steps{
-              script {
-                 def scannerHome = tool 'scanner'
-                 withSonarQubeEnv {
-                 sh "${scannerHome}/bin/sonar-scanner"
-                      }
-                     }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'scanner'
+                    withSonarQubeEnv {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
                 }
-       }
-        stage('Build Backend Docker Image') {
+            }
+        }
+        
+        stage('Build and Push Backend Docker Image') {
             steps {
                 dir('BNA-dashboard/backend') {
                     script {
                         def dockerImage = docker.build('your-backend-image-name:latest', '.')
+                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
         }
-        stage('Push Backend Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
-                        def dockerImage = docker.image('your-backend-image-name:latest')
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-        stage('Install dependencies - React') {
-            steps {
-                dir('BNA-dashboard/admin') {
-                    sh 'npm install'
-                }
-            }
-        }
-        stage('Build Admin Docker Image') {
+        
+        stage('Build and Push Admin Docker Image') {
             steps {
                 dir('BNA-dashboard/admin') {
                     script {
                         def dockerImage = docker.build('your-admin-image-name:latest', '.')
-                    }
-                }
-            }
-        }
-        stage('Push Admin Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
-                        def dockerImage = docker.image('your-admin-image-name:latest')
-                        dockerImage.push()
+                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
