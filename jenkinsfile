@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKERHUB_TOKEN = credentials('first-pipe')
+        DOCKERHUB_TOKEN = credentials('firs-pipe')
     }
     
     stages {
