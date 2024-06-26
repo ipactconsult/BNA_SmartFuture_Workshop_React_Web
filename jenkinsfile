@@ -64,27 +64,46 @@ pipeline {
             }
         }
         
-        stage('Build and Push Backend Docker Image') {
+        stage('Build Docker Image') {
             steps {
-                dir('BNA-dashboard/backend') {
-                    script {
-                        def dockerImage = docker.build('your-backend-image-name:latest', '.')
-                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
-                            dockerImage.push()
-                        }
+                script {
+                    def dockerImage = docker.build("aadmin", "-f BNA-dashboard/admin/Dockerfile .")
+                }
+            }
+        }
+
+        stage(' Push Docker Image to DockerHub') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerpwd')]) {
+                        sh '''
+                        docker login -u nadianb -p "$dockerpwd"
+                        docker tagaadmin:latest nadianb/aadmin:latest
+                        docker push nadianb/aadmin:latest
+                        '''
                     }
                 }
             }
         }
         
-        stage('Build and Push Admin Docker Image') {
+        
+      stage('Build Docker Image') {
             steps {
-                dir('BNA-dashboard/admin') {
-                    script {
-                        def dockerImage = docker.build('your-admin-image-name:latest', '.')
-                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
-                            dockerImage.push()
-                        }
+                script {
+                    def dockerImage = docker.build("product_management", "-f BNA-dashboard/backend/Dockerfile .")
+                }
+            }
+        }
+
+        stage(' Push Docker Image to DockerHub') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerpwd')]) {
+                        sh '''
+                        docker login -u nadianb -p "$dockerpwd"
+                        docker tag product_management:latest nadianb/product_management:latest
+                        docker push nadianb/product_management:latest
+                        '''
                     }
                 }
             }
