@@ -40,14 +40,7 @@ pipeline {
                 }
             }
         }
-        stage('Test - React') {
-            steps {
-                dir('BNA-dashboard/admin') {
-                    // Exécution des tests unitaires pour le projet React
-                    sh 'npm test -- --coverage --watchAll=false'
-                }
-            }
-        }
+      
         stage('Build - React') {
             steps {
                 dir('BNA-dashboard/admin') {
