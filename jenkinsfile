@@ -2,13 +2,12 @@ pipeline {
     agent any
     
     environment {
-       // DOCKERHUB_TOKEN = credentials('firs-pipe')
-    
-        // Définissez les variables d'environnement nécessaires, par exemple :
         registry = "your-dockerhub-username" // Remplacez par votre nom d'utilisateur Docker Hub
-        dockerImage = "your-dockerhub-username/your-image-name" // Remplacez par le nom de votre image Docker
-         dockerFile = "BNA-dashboard/backend/Dockerfile" // Chemin vers votre Dockerfile
-        dockerCred = credentials('firs-pipe') // Remplacez par l'ID des identifiants Docker Hub
+        dockerImageBackend = "your-dockerhub-username/product_management" // Image Docker pour le backend
+        dockerImageReact = "your-dockerhub-username/admin" // Image Docker pour React
+        dockerFileBackend = "BNA-dashboard/backend/Dockerfile" // Chemin vers Dockerfile du backend
+        dockerFileReact = "BNA-dashboard/admin/Dockerfile" // Chemin vers Dockerfile de React
+        dockerCred = credentials('firs-pipe') // ID des identifiants Docker Hub
     }
     
     stages {
@@ -69,35 +68,14 @@ pipeline {
                 }
             }
         }
-        stages {
-        stage('Build') {
-            steps {
-                script {
-                    // Construire l'image Docker
-                    docker.withRegistry('', dockerCred) {
-                        def customImage = docker.build(dockerImage, "-f ${dockerFile} .")
-                    }
-                }
-            }
-        }
-
-        stage('Push') {
-            steps {
-                script {
-                    // Pousser l'image Docker vers Docker Hub
-                    docker.withRegistry('https://registry.hub.docker.com', dockerCred) {
-                        customImage.push()
-                    }
-                }
-            }
+        
         stage('Build and Push Docker Image - Backend') {
             steps {
-                dir('BNA-dashboard/backend') {
-                    script {
-                        def dockerImage = docker.build("product_management", "-f Dockerfile .")
-                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                            dockerImage.push()
-                        }
+                script {
+                    // Construire l'image Docker pour le backend
+                    docker.withRegistry('', dockerCred) {
+                        def customImage = docker.build(dockerImageBackend, "-f ${dockerFileBackend} BNA-dashboard/backend")
+                        customImage.push()
                     }
                 }
             }
@@ -105,12 +83,11 @@ pipeline {
 
         stage('Build and Push Docker Image - React') {
             steps {
-                dir('BNA-dashboard/admin') {
-                    script {
-                        def dockerImage = docker.build("aadmin", "-f Dockerfile .")
-                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                            dockerImage.push()
-                        }
+                script {
+                    // Construire l'image Docker pour React
+                    docker.withRegistry('', dockerCred) {
+                        def customImage = docker.build(dockerImageReact, "-f ${dockerFileReact} BNA-dashboard/admin")
+                        customImage.push()
                     }
                 }
             }
