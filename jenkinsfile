@@ -2,7 +2,13 @@ pipeline {
     agent any
     
     environment {
-        DOCKERHUB_TOKEN = credentials('firs-pipe')
+       // DOCKERHUB_TOKEN = credentials('firs-pipe')
+    
+        // Définissez les variables d'environnement nécessaires, par exemple :
+        registry = "your-dockerhub-username" // Remplacez par votre nom d'utilisateur Docker Hub
+        dockerImage = "your-dockerhub-username/your-image-name" // Remplacez par le nom de votre image Docker
+         dockerFile = "BNA-dashboard/backend/Dockerfile" // Chemin vers votre Dockerfile
+        dockerCred = credentials('firs-pipe') // Remplacez par l'ID des identifiants Docker Hub
     }
     
     stages {
@@ -63,7 +69,27 @@ pipeline {
                 }
             }
         }
-        
+        stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Construire l'image Docker
+                    docker.withRegistry('', dockerCred) {
+                        def customImage = docker.build(dockerImage, "-f ${dockerFile} .")
+                    }
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                script {
+                    // Pousser l'image Docker vers Docker Hub
+                    docker.withRegistry('https://registry.hub.docker.com', dockerCred) {
+                        customImage.push()
+                    }
+                }
+            }
         stage('Build and Push Docker Image - Backend') {
             steps {
                 dir('BNA-dashboard/backend') {
