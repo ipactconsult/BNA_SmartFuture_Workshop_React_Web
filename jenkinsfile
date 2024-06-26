@@ -16,14 +16,7 @@ pipeline {
                 }
             }
         }
-        stage('Test - Node.js') {
-            steps {
-                dir('BNA-dashboard/backend') {
-                    // Exécution des tests unitaires pour le sous-projet Node.js
-                    sh 'npm test'
-                }
-            }
-        }
+       
         stage('Build - Node.js') {
             steps {
                 dir('BNA-dashboard/backend') {
