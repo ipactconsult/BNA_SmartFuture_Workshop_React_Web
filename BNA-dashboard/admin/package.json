@@ -38,11 +38,18 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"
   },
-  "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/(?!(axios)/)"
+ "jest": {
+    "reporters": [
+        "default",
+        [
+            "jest-junit",
+            {
+                "outputDirectory": "./coverage/junit",
+                "outputName": "results.xml"
+            }
+        ]
     ]
-  },
+},
   "browserslist": {
     "production": [
       ">0.2%",
