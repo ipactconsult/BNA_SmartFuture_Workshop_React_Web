@@ -1,5 +1,11 @@
 pipeline {
     agent any
+     environment {
+        SCANNER_HOME = tool 'scanner'
+        SONAR_TOKEN = credentials('scanner')
+        SONAR_URL = 'http://192.168.33.10:9000'
+        DOCKERHUB_TOKEN = credentials('firs-pipe')
+    }
 
     stages {
         stage('Checkout Git repository') {
@@ -48,16 +54,13 @@ pipeline {
                 }
             }
         }
-        tage('SonarQube Analysis') { 
-steps{ 
-script {   
-def scannerHome = tool 'scanner' 
-withSonarQubeEnv { 
-sh "${scannerHome}/bin/sonar-scanner" 
-} 
-}  
-}   
-} 
+        stage('SonarQube analysis') {
+            steps {
+                script {
+                    sh "mvn sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=${SONAR_URL}"
+                }
+            }
+        }
     }
 
     post {
