@@ -1,6 +1,13 @@
 pipeline {
     agent any
     
+    environment {
+        SCANNER_HOME = tool 'scanner'
+        SONAR_TOKEN = credentials('scanner')
+        SONAR_URL = 'http://192.168.33.10:9000'
+        DOCKERHUB_TOKEN = credentials('first-pipe')
+    }
+    
     stages {
         stage('Checkout Git repository') {
             steps {
@@ -11,7 +18,6 @@ pipeline {
         stage('Install dependencies - Node.js') {
             steps {
                 dir('BNA-dashboard/backend') {
-                    // Installation des dépendances pour le sous-projet Node.js
                     sh 'npm install'
                 }
             }
@@ -19,47 +25,67 @@ pipeline {
         stage('Test - Node.js') {
             steps {
                 dir('BNA-dashboard/backend') {
-                    // Exécution des tests unitaires pour le sous-projet Node.js
                     sh 'npm test'
                 }
             }
         }
-        stage('Build - Node.js') {
+        stage('Build Backend Docker Image') {
             steps {
                 dir('BNA-dashboard/backend') {
-                    // Construire le backend Node.js
-                    sh 'npm run build'
+                    script {
+                        def dockerImage = docker.build('your-backend-image-name:latest', '.')
+                    }
+                }
+            }
+        }
+        stage('Push Backend Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+                        def dockerImage = docker.image('your-backend-image-name:latest')
+                        dockerImage.push()
+                    }
                 }
             }
         }
         stage('Install dependencies - React') {
             steps {
                 dir('BNA-dashboard/admin') {
-                    // Installation des dépendances pour le projet React
                     sh 'npm install'
                 }
             }
         }
-        stage('Build - React') {
+        stage('Build Admin Docker Image') {
             steps {
                 dir('BNA-dashboard/admin') {
-                    // Construire le projet React
-                    sh 'npm run build'
+                    script {
+                        def dockerImage = docker.build('your-admin-image-name:latest', '.')
+                    }
                 }
             }
         }
-          stage('SonarQube Analysis') {
-            steps{
-              script {
-                 def scannerHome = tool 'scanner'
-                 withSonarQubeEnv {
-                 sh "${scannerHome}/bin/sonar-scanner"
-                      }
-                     }
+        stage('Push Admin Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+                        def dockerImage = docker.image('your-admin-image-name:latest')
+                        dockerImage.push()
+                    }
                 }
-       }
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        def scannerHome = tool 'scanner'
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
     }
-
+    
     post {
         success {
             echo 'Build and tests completed successfully!'
