@@ -51,16 +51,6 @@ pipeline {
     }
 
     post {
-        always {
-            // Archivage des résultats des tests pour Node.js
-            dir('BNA-dashboard/backend') {
-                junit 'test-results.xml'
-            }
-            // Archivage des résultats des tests pour React
-            dir('BNA-dashboard/admin') {
-                junit '**/coverage/junit/results.xml'
-            }
-        }
         success {
             echo 'Build and tests completed successfully!'
         }
